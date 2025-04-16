@@ -25,8 +25,14 @@ class TestStringCalculator < Minitest::Test
       assert_equal StringCalculator.add("1\n3,4,2\n,3"), 'Invalid Input'
     end
 
-     it "should print 'Invalid Input' if comma and newline character are placed adjacent in a string" do
+    it "should print 'Invalid Input' if comma and newline character are placed adjacent in a string" do
       assert_equal StringCalculator.add("1\n3,4,2\n,3"), 'Invalid Input'
+    end
+
+    it "should support a new delimiter introduced by string prefix '//[delimiter]\n'" do
+      assert_equal StringCalculator.add("//;\n1;2"), 3 
+      assert_equal StringCalculator.add("//|\n1|2|3"), 6 
+      assert_equal StringCalculator.add("//|\n1|2|3,4\n1"), 11 
     end
 
   end
