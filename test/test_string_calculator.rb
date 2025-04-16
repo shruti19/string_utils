@@ -19,6 +19,16 @@ class TestStringCalculator < Minitest::Test
       assert_equal StringCalculator.add('0,3,2,5'), 10
     end
 
+    it "should accpet strings where numbers are separated by newline (\n) character" do
+      assert_equal StringCalculator.add("1\n3"), StringCalculator.add('1,3')
+      assert_equal StringCalculator.add("1\n3,4,2\n3"), 13
+      assert_equal StringCalculator.add("1\n3,4,2\n,3"), 'Invalid Input'
+    end
+
+     it "should print 'Invalid Input' if comma and newline character are placed adjacent in a string" do
+      assert_equal StringCalculator.add("1\n3,4,2\n,3"), 'Invalid Input'
+    end
+
   end
 
 end
