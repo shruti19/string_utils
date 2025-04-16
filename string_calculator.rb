@@ -5,7 +5,11 @@ class StringCalculator
 	def self.add str
 		return 0 if str.empty?
 
-		sum = 0 
+		sum = 0
+
+    negitives = str.scan(/-\d+/).map(&:to_i)
+    raise "negatives not allowed (found #{negitives.join(', ')})" if !negitives.empty?
+
 		is_valid = validate(str)
 		return "Invalid Input" if !is_valid
 		nums = str.scan(/\d+/)
