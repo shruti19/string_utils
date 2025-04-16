@@ -35,6 +35,13 @@ class TestStringCalculator < Minitest::Test
       assert_equal StringCalculator.add("//|\n1|2|3,4\n1"), 11 
     end
 
+    it "should throw execption if string has negative numbers and list all negative numbers" do
+      err = assert_raises RuntimeError do 
+        StringCalculator.add("-1,0,-5,4")
+      end
+      assert_equal err.message, "negatives not allowed (found -1, -5)"
+    end
+
   end
 
 end
