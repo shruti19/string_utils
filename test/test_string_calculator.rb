@@ -5,7 +5,7 @@ class TestStringCalculator < Minitest::Test
 
   describe "StringCalculator" do
   	
-    it "should have an add method" do
+    it "should have an _add method" do
       assert_equal ''.respond_to?(:_add), true
   	end
 
