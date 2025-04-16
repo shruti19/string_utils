@@ -6,7 +6,7 @@ class TestStringCalculator < Minitest::Test
   describe "StringCalculator#add" do
   	
     it "should have an add method" do
-      assert_equal StringCalculator.respond_to?(:add), true
+      assert_respond_to StringCalculator, :add
   	end
 
     it "should return sum as 0 if called on empty string" do
