@@ -46,9 +46,10 @@ class TestStringCalculator < Minitest::Test
       assert_equal StringCalculator.add("1,1000\n200\n5"), 206 
     end
 
-    it "should support a new delimiter having more than one character introduced by string prefix '//[delimiter]\n'" do
-      assert_equal StringCalculator.add("//%%%\n1%%%3%%%8"), 12
-      assert_equal StringCalculator.add("//**\n1**3**8"), 12
+    it "should support delimiters having more than one character introduced by string prefix '//[delimiter]\n'" do
+      assert_equal StringCalculator.add("//[%%%]\n1%%%3%%%8"), 12
+      assert_equal StringCalculator.add("//[**]\n1**3**8"), 12
+      assert_equal StringCalculator.add("//[$][||]\n1$3||8"), 12
     end
 
   end

@@ -7,7 +7,7 @@
 
 ## 3. Allow the Add method to handle new lines between numbers (instead of commas). new line (\n) and comma if appear adjacent, input is considered invalid.
 
-## 4. Support different delimiters
+## 4. Support different delimiters. To change delimiter, the beginning of the string will contain a separate line that looks like this: “//[delimiter]\n[numbers…]” for example “//;\n1;2” should output 3.
 
 ## 5. Calling Add with a negative number will throw an exception “negatives not allowed” - and the negative that was passed. If there are multiple negatives, show all of them in the exception message.
 
