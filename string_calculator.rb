@@ -49,6 +49,3 @@ class StringCalculator
   end
 
 end
-
-
-StringCalculator.add("1,2,3")

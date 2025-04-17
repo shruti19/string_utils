@@ -54,4 +54,32 @@ class TestStringCalculator < Minitest::Test
 
   end
 
+  describe "StringCalculator#find_delimiters" do
+    it "should have an find_delimiters method" do
+      assert_respond_to StringCalculator, :find_delimiters
+    end
+
+    it "should return an Array if string has introduced multichar or multiple delimiters" do
+      assert StringCalculator.find_delimiters("//[***]\n1***2").is_a?(Array), true
+    end
+
+    it "should return a String if string has no new delimiter or introduced a singlechar delimiter" do
+      assert StringCalculator.find_delimiters("1,2").is_a?(String), true
+      assert StringCalculator.find_delimiters("//;\n1;2").is_a?(String), true
+    end
+
+    it "should return list of all delimiters in order they are specified" do
+      assert_equal StringCalculator.find_delimiters("//[**][$][%]\n1,2**3"), ['**', '$', '%']
+    end
+
+    it "should remove the first line of delimiter declaration from string after all delimiters are captured" do
+      str1 = "//[****][$]\n1****2,3"
+      str2 = "//:\n1:2,3"
+      StringCalculator.find_delimiters(str1)
+      StringCalculator.find_delimiters(str2)
+      assert_equal str1, "1****2,3"
+      assert_equal str2, "1:2,3"
+    end
+  end
+
 end
