@@ -48,4 +48,22 @@ class StringCalculator
     end
   end
 
+  def self.find_delimiters str
+    ## Check for multichar and/or multiple delimiters
+    multichar_delims = str.scan(MULTICHAR_DELIM_REGEX).flatten
+    if !multichar_delims.empty?
+      prefix = "//[" + multichar_delims.join("][") + "]\n"
+      ## Remove new delim prefix
+      str.gsub!(prefix, '')
+      return multichar_delims
+    else
+      ## Check for single char delimiter
+      singlechar_delim = str.scan(SINGLECHAR_DELIM_REGEX).flatten[0].to_s
+      ## Remove new delim prefix
+      str.sub!(SINGLECHAR_DELIM_REGEX, '')
+      return singlechar_delim
+    end
+
+  end
+
 end
