@@ -22,29 +22,19 @@ class StringCalculator
     sum
   end
 
-  def self.valid? str
-    singlechar_delims = str.scan(SINGLECHAR_DELIM_REGEX).flatten[0].to_s
-    multi_delims = str.scan(MULTICHAR_DELIM_REGEX).flatten
-    
-    if !singlechar_delims.empty?
-      ## Remove new delim prefix
-      str.sub!(SINGLECHAR_DELIM_REGEX, '')
-    end
-    
-    if !multi_delims.empty?
-      prefix = "//[" + multi_delims.join("][") + "]\n"
-      ## Remove new delim prefix
-      str.gsub!(prefix, '')
-
-      ## Append all single char delims
-      singlechar_delims += multi_delims.select{|d| d.length == 1}.join('')
-      multichar_delim = multi_delims.select{|d| d.length > 1}
-    end
-
-    if multichar_delim && !multichar_delim.empty?
-      return !!(str =~ VALID_MIXED_CHAR_DELIM_STRING.call(singlechar_delims, multichar_delim)) 
+   def self.valid? str
+    delims = find_delimiters(str)
+    if delims.is_a?Array
+      singlechars = delims.select{|d| d.length == 1}.join('') 
+      multichar = delims.select{|d| d.length > 1}
     else
-      return !!(str =~ VALID_SINGLE_CHAR_DELIM_STRING.call(singlechar_delims))
+      singlechars = delims
+    end
+    
+    if multichar && !multichar.empty?   
+      return !!(str =~ VALID_MIXED_CHAR_DELIM_STRING.call(singlechars, multichar))
+    else
+      return !!(str =~ VALID_SINGLE_CHAR_DELIM_STRING.call(singlechars))
     end
   end
 
